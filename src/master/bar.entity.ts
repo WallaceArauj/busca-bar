@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, EntityRepository, Repository } from 'typeorm';
 import { IsString, IsNotEmpty, IsInt, Min, Max, IsArray, ArrayNotEmpty } from 'class-validator';
+import { MenuItem } from './menu-item.entity';
+import { Order } from './order.entity';
 
 @Entity()
 export class Bar {
@@ -44,4 +46,11 @@ export class Bar {
     rating: number;
   }[];
 
+  @OneToMany(() => MenuItem, menuItem => menuItem.bar)
+  menuItems: MenuItem[];
+
+  @OneToMany(() => Order, order => order.bar)
+  orders: Order[];
+
 }
+
